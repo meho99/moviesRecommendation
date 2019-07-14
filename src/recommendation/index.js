@@ -21,7 +21,10 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    position: absolute
+    position: absolute;
+    @media (max-width : 768px){
+        height: 100%;
+    }
 `
 const Background = styled.img`
     height: 120vh;
@@ -41,6 +44,7 @@ const Buttons = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+
 `
 const Heading = styled.h2`
     width: 60vw;
@@ -55,6 +59,11 @@ const Heading = styled.h2`
     border-bottom-left-radius: 2vw;
     border-bottom-right-radius: 2vw;
     border-bottom: 0.05vw solid white;
+    @media (max-width : 768px){
+        font-size: 20px;
+        width: 100%;
+        left: 0;
+    }
 `
 
 // ----- component -----
