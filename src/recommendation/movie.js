@@ -56,22 +56,29 @@ class Movie extends React.Component {
             swipe: false
         }
     }
+    componentDidMount = () => {
+        window.addEventListener('resize', () => {
+            this.setState({position: window.innerWidth / 2})
+        })
+    }
 
     // ---------- swipe listeners ----------
 
     _onTouchStart = (e) => {
         this.setState({ swipe: true });
     }
+
     // ----- moblie move  -----
     _onTouchMove = (e) => {
-        if (e.changedTouches[0].pageX > window.innerWidth / 2 && this.state.swipe )
+        if (e.changedTouches[0].pageX > window.innerWidth / 2 && this.state.swipe)
             this.setState({ position: e.changedTouches[0].pageX });
     }
+
     // ----- desktop move -----
     _onMouseMove = (e) => {
         e.preventDefault()
         if (e.clientX > window.innerWidth / 2 && this.state.swipe)
-            this.setState({ position: e.clientX -10 });
+            this.setState({ position: e.clientX - 10 });
     }
     _onTouchEnd = (e) => {
         if (this.state.position > window.innerWidth * 3 / 4)
@@ -92,6 +99,7 @@ class Movie extends React.Component {
                 onMouseDown={this._onTouchStart}
                 onMouseMove={this._onMouseMove}
                 onMouseUp={this._onTouchEnd}
+
             >
                 <Container margin={this.state.position}>
                     <Cover src={this.props.currentItem.imageURL} alt='cover' />

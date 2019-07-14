@@ -33,6 +33,20 @@ export const getAllMovies = () =>
                 title: 'Star Wars: Episode VII - The Force Awakens',
                 summary: 'Lorem ipsum….',
                 rating: 8.2
+            },
+            {
+                id:'isleofdogs01',
+                imageURL : 'https://1.fwcdn.pl/an/np/49468/2017/12980.7.jpg',
+                title: 'Isle of Dogs',
+                summary: 'Lorem ipsum….',
+                rating: 7.8
+            },
+            {
+                id :'it001001',
+                imageURL:'https://images-na.ssl-images-amazon.com/images/I/61bMkkwpduL._SY679_.jpg',
+                title: 'It',
+                summary: 'Lorem ipsum….',
+                rating: 6.7
             }
         ]
 

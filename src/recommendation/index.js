@@ -91,7 +91,7 @@ class RecommendationContainer extends Component {
             <Container>
                 <Background src={this.props.currentItem ? this.props.currentItem.imageURL : 'none'} alt='background' />
                 {
-                    this.state.wait
+                    this.state.wait // loading
                         ?
                         'loading ...'
                         :
@@ -99,8 +99,8 @@ class RecommendationContainer extends Component {
                             <Heading>{this.props.currentItem.title}</Heading>
                             <Movie />
                             <Buttons>
-                                <StyledButton color='rgb(193, 0, 0)' imgURL={CancelIcon} click={() => { this.props.accept_rejectMovie({ id: this.props.currentItem.id, action: 'reject' }) }} />
                                 <StyledButton color='rgb(16, 182, 11)' imgURL={OkIcon} click={() => { this.props.accept_rejectMovie({ id: this.props.currentItem.id, action: 'accept' }) }} />
+                                <StyledButton color='rgb(193, 0, 0)' imgURL={CancelIcon} click={() => { this.props.accept_rejectMovie({ id: this.props.currentItem.id, action: 'reject' }) }} />
                             </Buttons>
 
                         </Above>
