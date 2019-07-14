@@ -2,7 +2,7 @@
 
 import actions from './actions';
 
-const fetchMovies = async (Data = { hello: 'world' }, method = 'GET', where = '/recommendations') => {
+const fetchMovies = async (Data = { hello: 'world' }, method = 'GET', where = 'recommendations') => {
 
     const response = await fetch(`/${where}`, { method: method, body: JSON.stringify(Data) })
     const json = await response.json()
@@ -35,11 +35,22 @@ export const getAllMovies = () =>
                 rating: 8.2
             }
         ]
-        
+
         // ------ add all movies -----
 
-        movies.map(movie=>{
+        movies.map(movie => {
             dispatch(actions.addMovie(movie))
         })
-
     }
+
+// ----- accept/reject recommendation -----
+
+export const accept_rejectMovie = (action) =>
+    async (dispatch) => {
+
+        fetchMovies({ hello: 'world' }, 'PUT', `recommendations/${action.id}/${action.action}`);
+
+        // ----- go to next movie -----
+        dispatch(actions.nextMovie())
+    }
+

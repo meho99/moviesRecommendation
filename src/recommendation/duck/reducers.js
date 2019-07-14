@@ -19,6 +19,18 @@ const movieReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state, list: [...state.list, action.item]
             }
+        
+        // ----- go to next movie -----
+
+        case types.NEXT_MOVIE:
+            let actual;
+            if(state.list.length == state.actualItem+ 1)
+                actual= 0;
+            else
+                actual= state.actualItem+ 1
+            return {
+                ... state, actualItem: actual
+            }
 
         default:
             return state;
