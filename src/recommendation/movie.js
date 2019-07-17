@@ -3,48 +3,56 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { accept_rejectMovie } from './duck/operations';
-import styled from 'styled-components';
+
+import { withStyles } from '@material-ui/styles';
+import Container from '@material-ui/core/Container'
+import Typography from '@material-ui/core/Typography'
 
 // ----- style -----
-
-const Container = styled.div`
-    width: 50vw;
-    max-width: 80vh;
-    background-color:#191919;
-    display: flex;
-    flex-direction: row;
-    border-radius: 2vw;
-    position: relative;
-    left: calc(${props => props.margin}px - 50vw);
-    cursor: pointer;
-    @media(max-width: 768px){
-        min-width: 40vh;
+const styles = {
+    MyContainer: {
+        width: '50vw',
+        maxWidth: '80vh',
+        backgroundColor: '#191919',
+        display: 'flex',
+        flexDirection: 'row',
+        padding: 0,
+        borderRadius: '2vw',
+        position: 'relative',
+        cursor: 'pointer',
+        ['@media(max-width : 768px)']: {
+            minWidth: '40vh'
+        }
+    },
+    Cover: {
+        width: '50%',
+        height: '100%',
+        borderRadius: '2vw 0 0 2vw'
+    },
+    RightDiv: {
+        width: '50%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    Info: {
+        fontSize: '1.5vw',
+        marginBottom: '3vw',
+        marginTop: '1vw',
+        textAlign: 'center',
+        color: 'white',
+        fontFamily: 'Indie Flower, cursive',
+        ['@media(max-width: 768px)']: {
+            fontSize: '13px'
+        }
+    },
+    Info_title: {
+        color: '#C10000',
+        fontWeight: 'bold',
+        fontStyle: 'italic'
     }
-`
-const Cover = styled.img`
-    width: 50%;
-    height: 100%;
-    border-radius: 2vw 0 0 2vw;
+}
 
-`
-const RightDiv = styled.div`
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`
-const Info = styled.p`
-    font-size: 1.5vw;
-    margin-bottom: 3vw;
-    margin-top: 1vw;
-    text-align:center;
-    color: ${props => props.title ? '#C10000' : 'white'};
-    font-weight: ${props => props.title ? 'bold' : 'none'};
-    font-style: ${props => props.title ? 'italic' : 'none'} ;
-    @media(max-width: 768px){
-        font-size: 13px;
-    }
-`
 
 // ----- component -----
 
@@ -58,7 +66,7 @@ class Movie extends React.Component {
     }
     componentDidMount = () => {
         window.addEventListener('resize', () => {
-            this.setState({position: window.innerWidth / 2})
+            this.setState({ position: window.innerWidth / 2 })
         })
     }
 
@@ -86,8 +94,10 @@ class Movie extends React.Component {
         this.setState({ position: window.innerWidth / 2, swipe: false });
     }
     render() {
+        const { classes } = this.props
         return (
-            <div
+
+            <Container className={classes.MyContainer} style={{ left: `calc(${this.state.position}px - 50vw)` }}
                 // ----- moblie -----
 
                 onTouchStart={this._onTouchStart}
@@ -99,17 +109,14 @@ class Movie extends React.Component {
                 onMouseDown={this._onTouchStart}
                 onMouseMove={this._onMouseMove}
                 onMouseUp={this._onTouchEnd}
-
             >
-                <Container margin={this.state.position}>
-                    <Cover src={this.props.currentItem.imageURL} alt='cover' />
-                    <RightDiv>
-                        <Info title={1} >{this.props.currentItem.title}</Info>
-                        <Info>Rating: {this.props.currentItem.rating}</Info>
-                        <Info>Summary: {this.props.currentItem.summary}</Info>
-                    </RightDiv>
+                <img className={classes.Cover} src={this.props.currentItem.imageURL} alt='cover' />
+                <Container className={classes.RightDiv}>
+                    <Typography variant='subtitle1' component='p' className={`${classes.Info} ${classes.Info_title}`} >{this.props.currentItem.title}</Typography>
+                    <Typography variant='subtitle2' component='p' className={classes.Info} >Rating: {this.props.currentItem.rating}</Typography>
+                    <Typography variant='subtitle2' component='p' className={classes.Info}>Summary: {this.props.currentItem.summary}</Typography>
                 </Container>
-            </div>
+            </Container>
 
         );
     }
@@ -125,4 +132,4 @@ const mapDispatchToProps = dispatch => ({
     accept_rejectMovie: action => dispatch(accept_rejectMovie(action))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Movie);
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(Movie));

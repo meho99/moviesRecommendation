@@ -1,32 +1,34 @@
 // ---------- BUTTONS COMPONENT ----------
 
 import React from 'react';
-import styled from 'styled-components'
+import { makeStyles } from '@material-ui/styles';
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
 
 // ------ style -----
 
-const Button = styled.button`
-    border-bottom: 0.4vw solid ${props => props.color};
-    background: none;
-    height: 3.5vw;
-    max-height: 9vh;
-    min-height: 5vh;
-    border-radius: 2vw;
-    width: 40vw;
-    padding: 0;
-    cursor: pointer;
-`
-const Icon = styled.img`
-    height 80%;
-`
+const useStyles = makeStyles({
+    Button:  props => ({
+        borderBottom: `0.4vw solid ${props.color}`,
+        background: 'none',
+        height: '6vw',
+        maxHeight: '9vh',
+        minHeight: '5vh',
+        borderRadius: '2vw',
+        width: '40vw',
+        cursor: 'pointer',
+    }),
+    Icon: {
+        maxHeight: '4vh'
+    }
+})
 
 // ----- component -----
 
-const StyledButton = props => 
-        <Button color={props.color} onClick={props.click}>
-            <Icon src={props.imgURL} alt='icon'/>
-        </Button>
+const StyledButton = props =>
+    <Button  className={useStyles({color: props.color}).Button} onClick={props.click}>
+        <img src={props.imgURL}  className={useStyles().Icon} alt='icon' />
+    </Button>
 
 
 StyledButton.propTypes = {

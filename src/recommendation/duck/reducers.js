@@ -24,7 +24,7 @@ const movieReducer = (state = INITIAL_STATE, action) => {
 
         case types.NEXT_MOVIE:
             let actual;
-            if(state.list.length == state.actualItem+ 1)
+            if(state.list.length === state.actualItem+ 1)
                 actual= 0;
             else
                 actual= state.actualItem+ 1

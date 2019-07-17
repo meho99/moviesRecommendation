@@ -1,10 +1,11 @@
 // ---------- SERVER COMMUNICATION ----------
 
+
 import actions from './actions';
 
-const fetchMovies = async (Data = { hello: 'world' }, method = 'GET', where = 'recommendations') => {
+export const fetchMovies = async (Data = { hello: 'world' }, method = 'GET', where = 'recommendations') => {
 
-    const response = await fetch(`/${where}`, { method: method, body: JSON.stringify(Data) })
+    const response = await fetch(`https://myDotServer/${where}`, { method: method, body: JSON.stringify(Data) })
     const json = await response.json()
 
     return json
